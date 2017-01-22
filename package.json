@@ -1,0 +1,44 @@
+{
+  "name": "tablemark-cli",
+  "version": "1.0.0-alpha.1",
+  "description": "Generate markdown tables from JSON data at the command line.",
+  "author": "Bo Lingen <thecitycide@gmail.com>",
+  "license": "MIT",
+  "repository": "citycide/tablemark-cli",
+  "bin": {
+    "tablemark": "cli.js"
+  },
+  "scripts": {
+    "test": "ava",
+    "test:watch": "ava -w"
+  },
+  "keywords": [
+    "cli",
+    "cli-app",
+    "markdown",
+    "tables",
+    "json",
+    "convert",
+    "generate"
+  ],
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {
+    "args": "^2.2.4",
+    "is-valid-path": "^0.1.1",
+    "tablemark": "^1.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "eslint": "^3.13.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-prefer-let": "^0.1.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1"
+  }
+}

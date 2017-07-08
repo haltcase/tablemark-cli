@@ -1,2 +1,6 @@
+# IDE configurations
+.c9
 .idea
+.vscode
+
 node_modules

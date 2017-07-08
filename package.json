@@ -1,6 +1,6 @@
 {
   "name": "tablemark-cli",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Generate markdown tables from JSON data at the command line.",
   "author": {
     "name": "Bo Lingen",

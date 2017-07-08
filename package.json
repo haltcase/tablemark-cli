@@ -41,7 +41,7 @@
   "dependencies": {
     "args": "^3.0.2",
     "is-valid-path": "^0.1.1",
-    "tablemark": "^1.0.0-alpha.2"
+    "tablemark": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^0.20.0",

@@ -1,4 +1,4 @@
-# tablemark-cli [![Version](https://img.shields.io/npm/v/tablemark-cli.svg?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![License](https://img.shields.io/npm/l/tablemark-cli.svg?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![Travis CI](https://img.shields.io/travis/citycide/tablemark-cli.svg?style=flat-square)](https://travis-ci.org/citycide/tablemark-cli) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://standardjs.com)
+# tablemark-cli &middot; [![Version](https://img.shields.io/npm/v/tablemark-cli.svg?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![License](https://img.shields.io/npm/l/tablemark-cli.svg?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![Travis CI](https://img.shields.io/travis/citycide/tablemark-cli.svg?style=flat-square)](https://travis-ci.org/citycide/tablemark-cli) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://standardjs.com)
 
 > Generate markdown tables from JSON data at the command line.
 

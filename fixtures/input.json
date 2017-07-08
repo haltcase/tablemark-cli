@@ -1,6 +1,6 @@
 [
   {
-    "name": "Trilogy",
+    "name": "trilogy",
     "repo": "[citycide/trilogy](https://github.com/citycide/trilogy)",
     "desc": "No-hassle SQLite with type-casting schema models and support for native & pure JS backends."
   },

@@ -1,6 +1,6 @@
 'use strict'
 
-const { readFileSync } = require('fs')
+const fs = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
@@ -21,7 +21,7 @@ function read (input) {
   let contents
 
   try {
-    contents = readFileSync(input)
+    contents = fs.readFileSync(input)
   } catch (e) {
     throw new ReferenceError(
       `Error reading file at ${input} :: ${e.message}`

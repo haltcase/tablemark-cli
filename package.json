@@ -29,7 +29,7 @@
     "node": ">=4"
   },
   "dependencies": {
-    "args": "^2.2.4",
+    "args": "^3.0.2",
     "is-valid-path": "^0.1.1",
     "tablemark": "^1.0.0-alpha.2"
   },

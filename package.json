@@ -2,15 +2,20 @@
   "name": "tablemark-cli",
   "version": "1.0.0-alpha.1",
   "description": "Generate markdown tables from JSON data at the command line.",
-  "author": "Bo Lingen <thecitycide@gmail.com>",
-  "license": "MIT",
-  "repository": "citycide/tablemark-cli",
-  "bin": {
-    "tablemark": "cli.js"
+  "author": {
+    "name": "Bo Lingen",
+    "email": "lingenbw@gmail.com",
+    "url": "github.com/citycide"
   },
-  "scripts": {
-    "test": "ava",
-    "test:watch": "ava -w"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/citycide/tablemark-cli.git"
+  },
+  "homepage": "https://github.com/citycide/tablemark-cli",
+  "bugs": "https://github.com/citycide/tablemark-cli/issues",
+  "engines": {
+    "node": ">=4"
   },
   "keywords": [
     "cli",
@@ -21,12 +26,17 @@
     "convert",
     "generate"
   ],
+  "bin": {
+    "tablemark": "cli.js"
+  },
   "files": [
     "index.js",
     "cli.js"
   ],
-  "engines": {
-    "node": ">=4"
+  "scripts": {
+    "lint": "standard | snazzy",
+    "test": "ava",
+    "test:watch": "ava -w"
   },
   "dependencies": {
     "args": "^3.0.2",

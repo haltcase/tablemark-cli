@@ -3,6 +3,7 @@
 
 const args = require('args')
 const convert = require('./')
+const stdin = require('get-stdin')()
 
 args.option('columns', 'List of column names, defaults to object keys.', [])
 args.option('align', 'List of alignment types, applied in order to columns.', [])
@@ -17,12 +18,6 @@ const flags = args.parse(process.argv, {
   }
 })
 
-const input = args.sub[0]
-
-if ((!input && process.stdin.isTTY)) {
-  args.showHelp()
-}
-
 const options = {}
 
 if (flags.columns.length > 0) {
@@ -33,5 +28,11 @@ if (flags.columns.length > 0) {
   options.columns = flags.align.map(align => ({ align }))
 }
 
-// write results to stdout
-console.log(convert(input, options))
+stdin.then(input => {
+  if (!args.sub[0] && !input && process.stdin.isTTY) {
+    return args.showHelp()
+  }
+
+  // write results to stdout
+  console.log(convert(args.sub[0], input, options))
+})

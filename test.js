@@ -1,3 +1,4 @@
+import fs from 'fs'
 import test from 'ava'
 import { EOL } from 'os'
 
@@ -15,7 +16,12 @@ const inputPath = './fixtures/input.json'
 
 // see the `tablemark` module for more tests
 
-test('outputs the expected markdown', t => {
+test('outputs the expected markdown from path', t => {
   let result = fn(inputPath)
+  t.is(result, expected)
+})
+
+test('outputs the expected markdown from stdin', t => {
+  let result = fn(null, fs.readFileSync(inputPath))
   t.is(result, expected)
 })

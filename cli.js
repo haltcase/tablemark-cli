@@ -28,11 +28,11 @@ if (flags.columns.length > 0) {
   options.columns = flags.align.map(align => ({ align }))
 }
 
-stdin.then(function( stdin ){
-  if (!args.sub[0] && !stdin && process.stdin.isTTY) {
+stdin.then(input => {
+  if (!args.sub[0] && !input && process.stdin.isTTY) {
     return args.showHelp()
   }
 
   // write results to stdout
-  console.log(convert(args.sub[0], stdin, options))
+  console.log(convert(args.sub[0], input, options))
 })

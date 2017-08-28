@@ -4,14 +4,14 @@ const fs = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
-module.exports = (input, options) => {
+module.exports = (path, input, options) => {
   options = Object.assign({}, options)
 
-  if (!isValidPath(input)) {
+  if (path && !isValidPath(path)) {
     throw new TypeError('Invalid file path')
   }
 
-  let fileContents = read(input)
+  let fileContents = path ? read(path) : input
   let parsedInput = parse(fileContents)
 
   return tablemark(parsedInput, options)

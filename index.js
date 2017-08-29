@@ -17,8 +17,7 @@ module.exports = (path, input, options) => {
   let json = path ? read(path) : input
   let data = parse(String(json))
 
-  if (data.length === 0)
-    return ''
+  if (data.length === 0) return ''
 
   return tablemark(data, options)
 }

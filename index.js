@@ -11,10 +11,10 @@ module.exports = (path, input, options) => {
     throw new TypeError('Invalid file path')
   }
 
-  let fileContents = path ? read(path) : input
-  let parsedInput = parse(fileContents)
+  let json = path ? read(path) : input
+  let data = parse(json)
 
-  return tablemark(parsedInput, options)
+  return tablemark(data, options)
 }
 
 function read (input) {

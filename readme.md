@@ -37,6 +37,12 @@ tablemark input.json > output.md -a left -a center
 
 ... which will align the first two columns left and center respectively.
 
+## stdin
+
+```console
+tablemark < input.json > output.md
+```
+
 ## see also
 
 - [`tablemark`](https://github.com/citycide/tablemark): the module used by this utility

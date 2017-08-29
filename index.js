@@ -4,6 +4,9 @@ const fs = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
+var jsonIsArray = /^\s*\[/
+var isEmpty = /^\s*$/
+
 module.exports = (path, input, options) => {
   options = Object.assign({}, options)
 
@@ -12,7 +15,10 @@ module.exports = (path, input, options) => {
   }
 
   let json = path ? read(path) : input
-  let data = parse(json)
+  let data = parse(String(json))
+
+  if (data.length === 0)
+    return ''
 
   return tablemark(data, options)
 }
@@ -32,19 +38,22 @@ function read (input) {
 }
 
 function parse (input) {
-  let parsed
+  if (jsonIsArray.test(input)) {
+    return parseJson(input)
+  }
 
+  return input
+    .split('\n')
+    .filter(l => !isEmpty.test(l))
+    .map(parseJson)
+}
+
+function parseJson (input) {
   try {
-    parsed = JSON.parse(input)
+    return JSON.parse(input)
   } catch (e) {
     throw new TypeError(
       `Could not parse input as JSON :: ${e.message}`
     )
   }
-
-  if (!Array.isArray(parsed)) {
-    parsed = [parsed]
-  }
-
-  return parsed
 }

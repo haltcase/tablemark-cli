@@ -13,6 +13,7 @@ const expected = [
 ].join(EOL) + EOL
 
 const inputPath = './fixtures/input.json'
+const ndjsonInputPath = './fixtures/input.ndjson'
 
 // see the `tablemark` module for more tests
 
@@ -23,5 +24,10 @@ test('outputs the expected markdown from path', t => {
 
 test('outputs the expected markdown from stdin', t => {
   let result = fn(null, fs.readFileSync(inputPath))
+  t.is(result, expected)
+})
+
+test('outputs the expected markdown from ndjson', t => {
+  let result = fn(null, fs.readFileSync(ndjsonInputPath))
   t.is(result, expected)
 })

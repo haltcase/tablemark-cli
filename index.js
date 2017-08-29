@@ -4,8 +4,8 @@ const fs = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
-var jsonIsArray = /^\s*\[/
-var isEmpty = /^\s*$/
+const jsonIsArray = /^\s*\[/
+const isEmpty = /^\s*$/
 
 module.exports = (path, input, options) => {
   options = Object.assign({}, options)

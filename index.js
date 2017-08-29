@@ -4,6 +4,9 @@ const fs = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
+const jsonIsArray = /^\s*\[/
+const isEmpty = /^\s*$/
+
 module.exports = (path, input, options) => {
   options = Object.assign({}, options)
 
@@ -11,10 +14,12 @@ module.exports = (path, input, options) => {
     throw new TypeError('Invalid file path')
   }
 
-  let fileContents = path ? read(path) : input
-  let parsedInput = parse(fileContents)
+  let json = path ? read(path) : input
+  let data = parse(String(json))
 
-  return tablemark(parsedInput, options)
+  if (data.length === 0) return ''
+
+  return tablemark(data, options)
 }
 
 function read (input) {
@@ -32,19 +37,22 @@ function read (input) {
 }
 
 function parse (input) {
-  let parsed
+  if (jsonIsArray.test(input)) {
+    return parseJson(input)
+  }
 
+  return input
+    .split('\n')
+    .filter(line => !isEmpty.test(line))
+    .map(parseJson)
+}
+
+function parseJson (input) {
   try {
-    parsed = JSON.parse(input)
+    return JSON.parse(input)
   } catch (e) {
     throw new TypeError(
       `Could not parse input as JSON :: ${e.message}`
     )
   }
-
-  if (!Array.isArray(parsed)) {
-    parsed = [parsed]
-  }
-
-  return parsed
 }

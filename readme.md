@@ -5,6 +5,8 @@
 Parse a JSON input file into a markdown table from the command line,
 powered by the [`tablemark`](https://github.com/citycide/tablemark) module.
 
+Supports NDJSON ([newline delimited JSON](http://ndjson.org/)).
+
 ## installation
 
 ```console

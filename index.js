@@ -43,7 +43,7 @@ function parse (input) {
 
   return input
     .split('\n')
-    .filter(l => !isEmpty.test(l))
+    .filter(line => !isEmpty.test(line))
     .map(parseJson)
 }
 

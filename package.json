@@ -42,7 +42,7 @@
     "args": "^3.0.2",
     "get-stdin": "^5.0.1",
     "is-valid-path": "^0.1.1",
-    "tablemark": "^1.0.0"
+    "tablemark": "^1.1.0"
   },
   "devDependencies": {
     "ava": "^0.20.0",

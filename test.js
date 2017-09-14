@@ -5,11 +5,11 @@ import { EOL } from 'os'
 import fn from './'
 
 const expected = [
-  'name | repo | desc',
-  '----- | ----- | -----',
-  'trilogy | [citycide/trilogy](https://github.com/citycide/trilogy) | No-hassle SQLite with type-casting schema models and support for native & pure JS backends.',
-  'strat | [citycide/strat](https://github.com/citycide/strat) | Functional-ish JavaScript string formatting, with inspirations from Python.',
-  'tablemark-cli | [citycide/tablemark-cli](https://github.com/citycide/tablemark-cli) | Generate markdown tables from JSON data at the command line.'
+  '| Name          | Repo                                                                | Desc                                                                                        |',
+  '| ------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |',
+  '| trilogy       | [citycide/trilogy](https://github.com/citycide/trilogy)             | No-hassle SQLite with type-casting schema models and support for native & pure JS backends. |',
+  '| strat         | [citycide/strat](https://github.com/citycide/strat)                 | Functional-ish JavaScript string formatting, with inspirations from Python.                 |',
+  '| tablemark-cli | [citycide/tablemark-cli](https://github.com/citycide/tablemark-cli) | Generate markdown tables from JSON data at the command line.                                |'
 ].join(EOL) + EOL
 
 const inputPath = './fixtures/input.json'

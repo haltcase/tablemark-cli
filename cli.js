@@ -7,6 +7,7 @@ const stdin = require('get-stdin')()
 
 args.option('columns', 'List of column names, defaults to object keys.', [])
 args.option('align', 'List of alignment types, applied in order to columns.', [])
+args.option(['N', 'no-case-headers'], 'Disable automatic sentence casing of derived key names', false)
 
 const flags = args.parse(process.argv, {
   name: 'tablemark',
@@ -26,6 +27,17 @@ if (flags.columns.length > 0) {
   })
 } else if (flags.align.length > 0) {
   options.columns = flags.align.map(align => ({ align }))
+}
+
+const ignores = ['columns', 'align', 'N']
+
+for (const key of Object.keys(flags)) {
+  if (ignores.indexOf(key) >= 0) continue
+  if (key === 'noCaseHeaders') {
+    options.caseHeaders = !flags[key]
+    continue
+  }
+  options[key] = flags[key]
 }
 
 stdin.then(input => {

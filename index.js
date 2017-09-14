@@ -14,8 +14,8 @@ module.exports = (path, input, options) => {
     throw new TypeError('Invalid file path')
   }
 
-  let json = path ? read(path) : input
-  let data = parse(String(json))
+  const json = path ? read(path) : input
+  const data = parse(String(json))
 
   if (data.length === 0) return ''
 

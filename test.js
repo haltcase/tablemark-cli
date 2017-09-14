@@ -18,16 +18,16 @@ const ndjsonInputPath = './fixtures/input.ndjson'
 // see the `tablemark` module for more tests
 
 test('outputs the expected markdown from path', t => {
-  let result = fn(inputPath)
+  const result = fn(inputPath)
   t.is(result, expected)
 })
 
 test('outputs the expected markdown from stdin', t => {
-  let result = fn(null, fs.readFileSync(inputPath))
+  const result = fn(null, fs.readFileSync(inputPath))
   t.is(result, expected)
 })
 
 test('outputs the expected markdown from ndjson', t => {
-  let result = fn(null, fs.readFileSync(ndjsonInputPath))
+  const result = fn(null, fs.readFileSync(ndjsonInputPath))
   t.is(result, expected)
 })

@@ -2,10 +2,16 @@
 
 > Generate markdown tables from JSON data at the command line.
 
-Parse a JSON input file into a markdown table from the command line,
+Parse JSON input data into a markdown table from the command line,
 powered by the [`tablemark`](https://github.com/citycide/tablemark) module.
 
-Supports NDJSON ([newline delimited JSON](http://ndjson.org/)).
+## features
+
+This utility supports:
+
+- JSON file input from a provided path
+- data piped from `stdin`
+- NDJSON formatted data ([newline delimited JSON](http://ndjson.org/)).
 
 ## installation
 
@@ -43,6 +49,23 @@ tablemark input.json > output.md -a left -a center
 
 ```console
 tablemark < input.json > output.md
+```
+
+## ndjson
+
+NDJSON is a form of JSON that delimits multiple JSON objects by newlines:
+
+```js
+{"name":"trilogy","repo":"[citycide/trilogy](https://github.com/citycide/trilogy)","desc":"No-hassle SQLite with type-casting schema models and support for native & pure JS backends."}
+{"name":"strat","repo":"[citycide/strat](https://github.com/citycide/strat)","desc":"Functional-ish JavaScript string formatting, with inspirations from Python."}
+{"name":"tablemark-cli","repo":"[citycide/tablemark-cli](https://github.com/citycide/tablemark-cli)","desc":"Generate markdown tables from JSON data at the command line."}
+```
+
+This input from a file or stdin is supported just as if it were
+a JSON compatible array:
+
+```console
+tablemark input.ndjson > output.md
 ```
 
 ## see also

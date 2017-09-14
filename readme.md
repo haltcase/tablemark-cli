@@ -72,6 +72,19 @@ tablemark input.ndjson > output.md
 
 - [`tablemark`](https://github.com/citycide/tablemark): the module used by this utility
 
+## contributing
+
+Search the [issues](https://github.com/citycide/tablemark-cli) if you come
+across any trouble, open a new one if it hasn't been posted, or, if you're
+able, open a [pull request](https://help.github.com/articles/about-pull-requests/).
+Contributions of any kind are welcome in this project.
+
+The following people have already contributed their time and effort:
+
+* Thomas Jensen (**[@tjconcept](https://github.com/tjconcept)**)
+
+Thank you!
+
 ## license
 
 MIT © Bo Lingen / citycide

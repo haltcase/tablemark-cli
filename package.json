@@ -29,7 +29,7 @@
   "scripts": {
     "lint": "standard | snazzy",
     "test": "ava",
-    "test:watch": "ava -w"
+    "prepublishOnly": "npm run lint && npm test"
   },
   "dependencies": {
     "args": "^5.0.1",

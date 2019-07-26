@@ -16,7 +16,7 @@ This utility supports:
 ## installation
 
 ```console
-npm i -g tablemark-cli
+yarn global add tablemark-cli
 ```
 
 ## usage

@@ -70,7 +70,7 @@ tablemark input.ndjson > output.md
 
 ## see also
 
-- [`tablemark`](https://github.com/citycide/tablemark): the module used by this utility
+- [`tablemark`](https://github.com/citycide/tablemark) &ndash; the module used by this utility
 
 ## contributing
 

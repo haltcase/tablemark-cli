@@ -15,13 +15,13 @@ This utility supports:
 
 ## installation
 
-```console
+```sh
 yarn global add tablemark-cli
 ```
 
 ## usage
 
-```console
+```sh
 Usage: tablemark <input-file> > <output-file> [options]
 
 Commands:
@@ -47,7 +47,7 @@ tablemark input.json > output.md -a left -a center
 
 ## stdin
 
-```console
+```sh
 tablemark < input.json > output.md
 ```
 
@@ -64,7 +64,7 @@ NDJSON is a form of JSON that delimits multiple JSON objects by newlines:
 This input from a file or stdin is supported just as if it were
 a JSON compatible array:
 
-```console
+```sh
 tablemark input.ndjson > output.md
 ```
 

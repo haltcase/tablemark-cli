@@ -32,14 +32,14 @@
     "test:watch": "ava -w"
   },
   "dependencies": {
-    "args": "^3.0.2",
-    "get-stdin": "^5.0.1",
+    "args": "^5.0.1",
+    "get-stdin": "^7.0.0",
     "is-valid-path": "^0.1.1",
-    "tablemark": "^1.1.0"
+    "tablemark": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "^0.20.0",
-    "snazzy": "^7.0.0",
-    "standard": "^10.0.2"
+    "ava": "^2.2.0",
+    "snazzy": "^8.0.0",
+    "standard": "^13.0.2"
   }
 }

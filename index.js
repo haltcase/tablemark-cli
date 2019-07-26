@@ -1,11 +1,46 @@
 'use strict'
 
-const fs = require('fs')
+const { readFileSync } = require('fs')
 const tablemark = require('tablemark')
 const isValidPath = require('is-valid-path')
 
-const jsonIsArray = /^\s*\[/
-const isEmpty = /^\s*$/
+const jsonIsArrayRegex = /^\s*\[/
+const isEmptyRegex = /^\s*$/
+
+const read = input => {
+  let contents
+
+  try {
+    contents = readFileSync(input)
+  } catch (e) {
+    throw new ReferenceError(
+      `Error reading file at ${input} :: ${e.message}`
+    )
+  }
+
+  return contents
+}
+
+const parse = input => {
+  if (jsonIsArrayRegex.test(input)) {
+    return parseJson(input)
+  }
+
+  return input
+    .split('\n')
+    .filter(line => !isEmptyRegex.test(line))
+    .map(parseJson)
+}
+
+const parseJson = input => {
+  try {
+    return JSON.parse(input)
+  } catch (e) {
+    throw new TypeError(
+      `Could not parse input as JSON :: ${e.message}`
+    )
+  }
+}
 
 module.exports = (path, input, options) => {
   options = Object.assign({}, options)
@@ -20,39 +55,4 @@ module.exports = (path, input, options) => {
   if (data.length === 0) return ''
 
   return tablemark(data, options)
-}
-
-function read (input) {
-  let contents
-
-  try {
-    contents = fs.readFileSync(input)
-  } catch (e) {
-    throw new ReferenceError(
-      `Error reading file at ${input} :: ${e.message}`
-    )
-  }
-
-  return contents
-}
-
-function parse (input) {
-  if (jsonIsArray.test(input)) {
-    return parseJson(input)
-  }
-
-  return input
-    .split('\n')
-    .filter(line => !isEmpty.test(line))
-    .map(parseJson)
-}
-
-function parseJson (input) {
-  try {
-    return JSON.parse(input)
-  } catch (e) {
-    throw new TypeError(
-      `Could not parse input as JSON :: ${e.message}`
-    )
-  }
 }

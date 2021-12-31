@@ -1,0 +1,18 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macOS-latest]
+        node: [16, 14]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: yarn && yarn test

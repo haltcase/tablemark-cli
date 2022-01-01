@@ -10,6 +10,8 @@
   "engines": {
     "node": ">=14.18"
   },
+  "type": "module",
+  "exports": "./dist/index.js",
   "keywords": [
     "cli",
     "cli-app",
@@ -20,26 +22,31 @@
     "generate"
   ],
   "bin": {
-    "tablemark": "cli.js"
+    "tablemark": "./dist/cli.js"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "dist"
   ],
   "scripts": {
-    "lint": "standard | snazzy",
+    "changelog": "changelog",
+    "lint": "ts-standardx && cd tests && ts-standardx . --disable-gitignore",
+    "build": "tsc",
+    "pretest": "npm run build",
     "test": "ava",
     "prepublishOnly": "npm run lint && npm test"
   },
   "dependencies": {
-    "args": "^5.0.1",
-    "get-stdin": "^7.0.0",
-    "is-valid-path": "^0.1.1",
-    "tablemark": "^2.0.0"
+    "cmd-ts": "^0.9.0",
+    "get-stdin": "^9.0.0",
+    "tablemark": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
-    "snazzy": "^8.0.0",
-    "standard": "^13.0.2"
+    "@citycide/changelog": "^2.0.0",
+    "@types/node": "^14.18.2",
+    "ava": "^3.15.0",
+    "execa": "^6.0.0",
+    "ts-node": "^10.4.0",
+    "ts-standardx": "^0.8.4",
+    "typescript": "^4.5.4"
   }
 }

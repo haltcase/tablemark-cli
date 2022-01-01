@@ -2,58 +2,83 @@
 
 > Generate markdown tables from JSON data at the command line.
 
-Parse JSON input data into a markdown table from the command line,
+Render JSON input data as a markdown table from the command line,
 powered by the [`tablemark`](https://github.com/citycide/tablemark) module.
 
 ## features
 
 This utility supports:
 
-- JSON file input from a provided path
-- data piped from `stdin`
-- NDJSON formatted data ([newline delimited JSON](http://ndjson.org/)).
+* JSON file input from a provided path
+* data piped from `stdin`
+* NDJSON formatted data ([newline delimited JSON](http://ndjson.org/))
 
 ## installation
 
 ```sh
 yarn global add tablemark-cli
+
+# or
+
+npm install --global tablemark-cli
 ```
 
 ## usage
 
 ```sh
-Usage: tablemark <input-file> > <output-file> [options]
+tablemark 3.0.0
+> Generate markdown tables from JSON data at the command line.
 
-Commands:
+ARGUMENTS:
+  <input-file> - Path to input file containing JSON data (use - for stdin)
 
-  help  Display help
+OPTIONS:
+  --column <str>, -c=<str>    - Custom column name, can be used multiple times (default: infer from object keys)
+  --align <value>, -a=<value> - Custom alignments, can be used multiple times, applied in order to columns (default: left)
+  --line-ending, -e <str>     - End-of-line string (default: \n) [optional]
+  --wrap-width, -w <number>   - Width at which to hard wrap cell content [default: Infinity]
 
-Options:
-
-  -a, --align <list>    List of alignment types, applied in order to columns. (defaults to [])
-  -c, --columns <list>  List of column names, defaults to object keys. (defaults to [])
-  -h, --help            Output usage information
-  -v, --version         Output the version number
+FLAGS:
+  --no-case-headers, -N   - Disable automatic sentence casing of inferred column names [default: false]
+  --wrap-with-gutters, -G - Add '|' characters to wrapped rows [default: false]
+  --help, -h              - show help
+  --version, -v           - print the version
 ```
 
-To use the `align` and `column` options, you can use the `-a` or
-`-c` flags multiple times, like this:
+To apply the `align` and `column` options to multiple columns, supply the flag
+multiple times, like this:
 
-````console
-tablemark input.json > output.md -a left -a center
-````
+```sh
+tablemark input.json > output.md -a left -a center -a right
+```
 
-... which will align the first two columns left and center respectively.
+... which will align the first three columns left, center, and right respectively.
 
 ## stdin
 
+In bash-like shells:
+
 ```sh
-tablemark < input.json > output.md
+# stdin -> stdout
+echo '{ "one": 1 }' | tablemark -
+
+# redirect input file content into stdin, then to a file
+tablemark - < input.json > output.md
+```
+
+In PowerShell:
+
+```powershell
+# stdin -> stdout
+'{ "one": 1 }' | tablemark -
+
+# redirect input file content into stdin, then to a file
+cat input.json | tablemark - > output.md
 ```
 
 ## ndjson
 
-NDJSON is a form of JSON that delimits multiple JSON objects by newlines:
+[NDJSON](http://ndjson.org) is a form of JSON that delimits multiple JSON objects by newlines:
 
 ```js
 {"name":"trilogy","repo":"[citycide/trilogy](https://github.com/citycide/trilogy)","desc":"No-hassle SQLite with type-casting schema models and support for native & pure JS backends."}
@@ -70,7 +95,7 @@ tablemark input.ndjson > output.md
 
 ## see also
 
-- [`tablemark`](https://github.com/citycide/tablemark) &ndash; the module used by this utility
+* [`tablemark`](https://github.com/citycide/tablemark) &ndash; the module used by this utility
 
 ## contributing
 

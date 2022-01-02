@@ -17,20 +17,23 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Unit tests
         run: yarn && yarn test
+
       - name: Installation test (npm)
-        working-directory: $GITHUB_WORKSPACE
         run: |
           npm install -g
           tablemark --version
           npm uninstall -g tablemark-cli
+
       - name: Installation test (npx)
-        working-directory: $GITHUB_WORKSPACE
         run: |
           npx -p . tablemark --version
-      - name: Installation test (yarn)
-        working-directory: $GITHUB_WORKSPACE
+
+      - name: Add yarn global directory to path
         run: |
-          $env:Path += ";$(yarn global bin)"
-          yarn global add $GITHUB_WORKSPACE
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+
+      - name: Installation test (yarn)
+        run: |
+          yarn global add $PWD
           tablemark --version
           yarn global remove tablemark

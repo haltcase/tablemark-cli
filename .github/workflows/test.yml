@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    name: Node ${{ matrix.node }}
+    name: ${{ matrix.os }} / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

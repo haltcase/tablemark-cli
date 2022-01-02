@@ -30,11 +30,12 @@ jobs:
           npx -p . tablemark --version
 
       - name: Add yarn global directory to path
-        run: |
-          yarn global bin >> $GITHUB_PATH
+        if: runner.os != 'Windows'
+        run: yarn global bin >> $GITHUB_PATH
 
-      - if: runner.os == 'Windows'
-        run: echo $env:PATH
+      - name: Add yarn global directory to path (Windows)
+        if: runner.os == 'Windows'
+        run: yarn global bin >> $env:GITHUB_PATH
 
       - name: Installation test (yarn)
         run: |

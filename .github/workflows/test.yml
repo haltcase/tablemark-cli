@@ -33,9 +33,11 @@ jobs:
         run: |
           yarn global bin >> $GITHUB_PATH
 
+      - if: runner.os == 'Windows'
+        run: echo $env:PATH
+
       - name: Installation test (yarn)
         run: |
-          echo $PATH
           yarn global add $PWD
           tablemark --version
           yarn global remove tablemark-cli

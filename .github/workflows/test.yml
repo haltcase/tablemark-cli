@@ -15,8 +15,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: |
-          yarn
-          yarn test
-          yarn link
-          tablemark --help
+      - name: Unit tests
+        run: yarn && yarn test
+      - name: Installation test (npm)
+        run: |
+          npm install -g
+          tablemark --version
+          npm uninstall -g tablemark-cli
+      - name: Installation test (npx)
+        run: |
+          npx -p $GITHUB_WORKSPACE tablemark --version
+      - name: Installation test (yarn)
+        run: |
+          $env:Path += ";$(yarn global bin)"
+          yarn global add $GITHUB_WORKSPACE
+          tablemark --version
+          yarn global remove tablemark

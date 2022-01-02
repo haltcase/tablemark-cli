@@ -15,4 +15,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: yarn && yarn test
+      - run: |
+          yarn
+          yarn test
+          yarn link
+          tablemark --help

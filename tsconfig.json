@@ -8,7 +8,7 @@
     "outDir": "dist",
     // emitted bin script must use LF line endings to be
     // executed properly in all scenarios, see:
-    // https://github.com/citycide/tablemark-cli/issues/1
+    // https://github.com/haltcase/tablemark-cli/issues/1
     "newLine": "lf"
   },
   "include": [

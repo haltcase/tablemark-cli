@@ -1,9 +1,9 @@
-# tablemark-cli &middot; [![Version](https://flat.badgen.net/npm/v/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![License](https://flat.badgen.net/npm/license/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![Travis CI](https://flat.badgen.net/travis/citycide/tablemark-cli)](https://travis-ci.org/citycide/tablemark-cli) [![JavaScript Standard Style](https://flat.badgen.net/badge/code%20style/standard/green)](https://standardjs.com)
+# tablemark-cli &middot; [![Version](https://flat.badgen.net/npm/v/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![License](https://flat.badgen.net/npm/license/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![Travis CI](https://flat.badgen.net/travis/haltcase/tablemark-cli)](https://travis-ci.org/haltcase/tablemark-cli) [![JavaScript Standard Style](https://flat.badgen.net/badge/code%20style/standard/green)](https://standardjs.com)
 
 > Generate markdown tables from JSON data at the command line.
 
 Render JSON input data as a markdown table from the command line,
-powered by the [`tablemark`](https://github.com/citycide/tablemark) module.
+powered by the [`tablemark`](https://github.com/haltcase/tablemark) module.
 
 ## features
 
@@ -81,9 +81,9 @@ cat input.json | tablemark - > output.md
 [NDJSON](http://ndjson.org) is a form of JSON that delimits multiple JSON objects by newlines:
 
 ```js
-{"name":"trilogy","repo":"[citycide/trilogy](https://github.com/citycide/trilogy)","desc":"No-hassle SQLite with type-casting schema models and support for native & pure JS backends."}
-{"name":"strat","repo":"[citycide/strat](https://github.com/citycide/strat)","desc":"Functional-ish JavaScript string formatting, with inspirations from Python."}
-{"name":"tablemark-cli","repo":"[citycide/tablemark-cli](https://github.com/citycide/tablemark-cli)","desc":"Generate markdown tables from JSON data at the command line."}
+{"name":"trilogy","repo":"[haltcase/trilogy](https://github.com/haltcase/trilogy)","desc":"No-hassle SQLite with type-casting schema models and support for native & pure JS backends."}
+{"name":"strat","repo":"[haltcase/strat](https://github.com/haltcase/strat)","desc":"Functional-ish JavaScript string formatting, with inspirations from Python."}
+{"name":"tablemark-cli","repo":"[haltcase/tablemark-cli](https://github.com/haltcase/tablemark-cli)","desc":"Generate markdown tables from JSON data at the command line."}
 ```
 
 This input from a file or stdin is supported just as if it were
@@ -95,11 +95,11 @@ tablemark input.ndjson > output.md
 
 ## see also
 
-* [`tablemark`](https://github.com/citycide/tablemark) &ndash; the module used by this utility
+* [`tablemark`](https://github.com/haltcase/tablemark) &ndash; the module used by this utility
 
 ## contributing
 
-Search the [issues](https://github.com/citycide/tablemark-cli) if you come
+Search the [issues](https://github.com/haltcase/tablemark-cli) if you come
 across any trouble, open a new one if it hasn't been posted, or, if you're
 able, open a [pull request](https://help.github.com/articles/about-pull-requests/).
 Contributions of any kind are welcome in this project.
@@ -112,4 +112,4 @@ Thank you!
 
 ## license
 
-MIT © Bo Lingen / citycide
+MIT © Bo Lingen / haltcase

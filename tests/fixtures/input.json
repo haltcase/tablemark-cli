@@ -1,17 +1,17 @@
 [
   {
     "name": "trilogy",
-    "repo": "[citycide/trilogy](https://github.com/citycide/trilogy)",
+    "repo": "[haltcase/trilogy](https://github.com/haltcase/trilogy)",
     "desc": "No-hassle SQLite with type-casting schema models and support for native & pure JS backends."
   },
   {
     "name": "strat",
-    "repo": "[citycide/strat](https://github.com/citycide/strat)",
+    "repo": "[haltcase/strat](https://github.com/haltcase/strat)",
     "desc": "Functional-ish JavaScript string formatting, with inspirations from Python."
   },
   {
     "name": "tablemark-cli",
-    "repo": "[citycide/tablemark-cli](https://github.com/citycide/tablemark-cli)",
+    "repo": "[haltcase/tablemark-cli](https://github.com/haltcase/tablemark-cli)",
     "desc": "Generate markdown tables from JSON data at the command line."
   }
 ]

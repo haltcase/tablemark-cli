@@ -2,11 +2,11 @@
   "name": "tablemark-cli",
   "version": "2.0.0",
   "description": "Generate markdown tables from JSON data at the command line.",
-  "author": "Bo Lingen <lingenbw@gmail.com> (https://github.com/citycide)",
+  "author": "Bo Lingen <lingenbw@gmail.com> (https://github.com/haltcase)",
   "license": "MIT",
-  "repository": "https://github.com/citycide/tablemark-cli.git",
-  "homepage": "https://github.com/citycide/tablemark-cli",
-  "bugs": "https://github.com/citycide/tablemark-cli/issues",
+  "repository": "https://github.com/haltcase/tablemark-cli.git",
+  "homepage": "https://github.com/haltcase/tablemark-cli",
+  "bugs": "https://github.com/haltcase/tablemark-cli/issues",
   "engines": {
     "node": ">=14.18"
   },

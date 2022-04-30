@@ -2,9 +2,8 @@ export default {
   extensions: {
     ts: "module"
   },
-  nonSemVerExperiments: {
-    configurableModuleFormat: true,
-    nextGenConfig: true
-  },
-  nodeArguments: ["--loader=ts-node/esm"]
+  nodeArguments: [
+    "--loader=esbuild-node-loader",
+    "--experimental-specifier-resolution=node"
+  ]
 }

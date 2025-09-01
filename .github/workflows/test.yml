@@ -1,44 +1,24 @@
 name: Test
-on: [push, pull_request]
+
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
     name: ${{ matrix.os }} / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
-        node: [16, 14]
+        node: [20, 22, 24]
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Install
+        uses: ./.github/composite-actions/install
         with:
           node-version: ${{ matrix.node }}
-      - name: Unit tests
-        run: yarn && yarn test
 
-      - name: Installation test (npm)
-        run: |
-          npm install -g
-          tablemark --version
-          npm uninstall -g tablemark-cli
-
-      - name: Installation test (npx)
-        run: |
-          npx -p . tablemark --version
-
-      - name: Add yarn global directory to path
-        if: runner.os != 'Windows'
-        run: yarn global bin >> $GITHUB_PATH
-
-      - name: Add yarn global directory to path (Windows)
-        if: runner.os == 'Windows'
-        run: yarn global bin >> $env:GITHUB_PATH
-
-      - name: Installation test (yarn)
-        run: |
-          yarn global add $PWD
-          tablemark --version
-          yarn global remove tablemark-cli
+      - name: Test
+        run: pnpm test

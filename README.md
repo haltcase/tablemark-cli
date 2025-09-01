@@ -1,4 +1,4 @@
-# tablemark-cli &middot; [![Version](https://flat.badgen.net/npm/v/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![License](https://flat.badgen.net/npm/license/tablemark-cli)](https://www.npmjs.com/package/tablemark-cli) [![Travis CI](https://flat.badgen.net/travis/haltcase/tablemark-cli)](https://travis-ci.org/haltcase/tablemark-cli) [![JavaScript Standard Style](https://flat.badgen.net/badge/code%20style/standard/green)](https://standardjs.com)
+# tablemark-cli &middot; [![npm version](https://img.shields.io/npm/v/tablemark-cli?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![license](https://img.shields.io/npm/l/tablemark-cli?style=flat-square)](https://www.npmjs.com/package/tablemark-cli) [![TypeScript](https://img.shields.io/badge/written%20in-TypeScript-294E80?style=flat-square&logo=TypeScript)](http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/haltcase/tablemark-cli/test.yml?style=flat-square)
 
 > Generate markdown tables from JSON data at the command line.
 
@@ -9,14 +9,14 @@ powered by the [`tablemark`](https://github.com/haltcase/tablemark) module.
 
 This utility supports:
 
-* JSON file input from a provided path
-* data piped from `stdin`
-* NDJSON formatted data ([newline delimited JSON](http://ndjson.org/))
+- JSON file input from a provided path
+- data piped from `stdin`
+- NDJSON formatted data ([newline delimited JSON](http://ndjson.org/))
 
 ## installation
 
-```sh
-yarn global add tablemark-cli
+```shell
+pnpm add --global tablemark-cli
 
 # or
 
@@ -25,7 +25,7 @@ npm install --global tablemark-cli
 
 ## usage
 
-```sh
+```
 tablemark 3.0.0
 > Generate markdown tables from JSON data at the command line.
 
@@ -95,7 +95,7 @@ tablemark input.ndjson > output.md
 
 ## see also
 
-* [`tablemark`](https://github.com/haltcase/tablemark) &ndash; the module used by this utility
+- [`tablemark`](https://github.com/haltcase/tablemark) &ndash; the module used by this utility
 
 ## contributing
 
@@ -106,7 +106,7 @@ Contributions of any kind are welcome in this project.
 
 The following people have already contributed their time and effort:
 
-* Thomas Jensen (**[@tjconcept](https://github.com/tjconcept)**)
+- Thomas Jensen (**[@tjconcept](https://github.com/tjconcept)**)
 
 Thank you!
 

@@ -1,52 +1,72 @@
 {
-  "name": "tablemark-cli",
-  "version": "3.0.0",
-  "description": "Generate markdown tables from JSON data at the command line.",
-  "license": "MIT",
-  "repository": "https://github.com/haltcase/tablemark-cli.git",
-  "homepage": "https://github.com/haltcase/tablemark-cli",
-  "bugs": "https://github.com/haltcase/tablemark-cli/issues",
-  "engines": {
-    "node": ">=14.18"
-  },
-  "type": "module",
-  "exports": "./dist/index.js",
-  "keywords": [
-    "cli",
-    "cli-app",
-    "markdown",
-    "tables",
-    "json",
-    "convert",
-    "generate"
-  ],
-  "author": "Bo Lingen <bo@haltcase.dev> (https://github.com/haltcase)",
-  "bin": {
-    "tablemark": "./dist/cli.js"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "changelog": "changelog",
-    "lint": "ts-standardx && cd tests && ts-standardx . --disable-gitignore",
-    "build": "tsc",
-    "pretest": "npm run build",
-    "test": "ava",
-    "prepublishOnly": "npm run lint && npm test"
-  },
-  "dependencies": {
-    "cmd-ts": "^0.10.1",
-    "get-stdin": "^9.0.0",
-    "tablemark": "^3.0.0"
-  },
-  "devDependencies": {
-    "@citycide/changelog": "^2.0.0",
-    "@types/node": "^14.18.2",
-    "ava": "^4.2.0",
-    "esbuild-node-loader": "^0.8.0",
-    "execa": "^6.0.0",
-    "ts-standardx": "^0.8.4",
-    "typescript": "^4.6.3"
-  }
+	"name": "tablemark-cli",
+	"version": "0.0.0-dev",
+	"description": "Generate markdown tables from JSON data at the command line.",
+	"keywords": [
+		"cli",
+		"cli-app",
+		"markdown",
+		"tables",
+		"json",
+		"convert",
+		"generate"
+	],
+	"homepage": "https://github.com/haltcase/tablemark-cli",
+	"bugs": "https://github.com/haltcase/tablemark-cli/issues",
+	"repository": "https://github.com/haltcase/tablemark-cli.git",
+	"license": "MIT",
+	"author": "Bo Lingen <bo@haltcase.dev> (https://github.com/haltcase)",
+	"type": "module",
+	"exports": "./dist/index.js",
+	"bin": {
+		"tablemark": "./dist/cli.js"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown",
+		"changelog": "changelog",
+		"eslint:check": "eslint src",
+		"format": "oxlint --fix && eslint --fix src tests && prettier --write src tests",
+		"oxlint:check": "oxlint",
+		"prepublishOnly": "pnpm format && pnpm build",
+		"prettier:check": "prettier --check src",
+		"test": "vitest",
+		"typescript:check": "tsgo"
+	},
+	"prettier": "@haltcase/style/prettier",
+	"dependencies": {
+		"cmd-ts": "^0.14.1",
+		"tablemark": "^3.1.0"
+	},
+	"devDependencies": {
+		"@citycide/changelog": "^2.0.0",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@commitlint/types": "^19.8.1",
+		"@haltcase/style": "^7.3.1",
+		"@types/node": "^20.19.11",
+		"@typescript/native-preview": "7.0.0-dev.20250830.1",
+		"eslint": "^9.34.0",
+		"eslint-plugin-oxlint": "^1.14.0",
+		"execa": "^9.6.0",
+		"lefthook": "^1.12.3",
+		"oxlint": "^1.14.0",
+		"prettier": "^3.6.2",
+		"tsdown": "^0.14.2",
+		"tsx": "catalog:",
+		"typescript": "^5.9.2",
+		"vitest": "^3.2.4"
+	},
+	"packageManager": "pnpm@10.15.0",
+	"engines": {
+		"node": ">=20"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": "^20"
+		}
+	}
 }

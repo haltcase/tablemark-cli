@@ -1,0 +1,8 @@
+catalog:
+  # Remove tsx when all supported versions of Node support TypeScript natively
+  tsx: 4.20.5
+
+onlyBuiltDependencies:
+  - esbuild
+  - lefthook
+  - unrs-resolver

@@ -1,224 +1,256 @@
-import { readFileSync } from "fs"
-import { dirname, resolve } from "path"
-import { fileURLToPath } from "url"
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import test from "ava"
-import { execaCommandSync } from "execa"
+import { execa, execaNode } from "execa";
+import { assert, expect, test } from "vitest";
 
 interface ExecutionResult {
-  success: boolean
-  stdout: string
-  stderr: string
+	success: boolean;
+	stdout: string;
+	stderr: string;
 }
 
 const joinLines = (lines: string[], lineEnding = "\n"): string =>
-  lines.join(lineEnding) + lineEnding
+	lines.join(lineEnding) + lineEnding;
 
-const expected = joinLines([
-  "| Name          | Repo                                                                | Desc                                                                                        |",
-  "| :------------ | :------------------------------------------------------------------ | :------------------------------------------------------------------------------------------ |",
-  "| trilogy       | [haltcase/trilogy](https://github.com/haltcase/trilogy)             | No-hassle SQLite with type-casting schema models and support for native & pure JS backends. |",
-  "| strat         | [haltcase/strat](https://github.com/haltcase/strat)                 | Functional-ish JavaScript string formatting, with inspirations from Python.                 |",
-  "| tablemark-cli | [haltcase/tablemark-cli](https://github.com/haltcase/tablemark-cli) | Generate markdown tables from JSON data at the command line.                                |"
-])
+const commonExpected = joinLines([
+	"| Name          | Repo                                                                | Desc                                                                                        |",
+	"| :------------ | :------------------------------------------------------------------ | :------------------------------------------------------------------------------------------ |",
+	"| trilogy       | [haltcase/trilogy](https://github.com/haltcase/trilogy)             | No-hassle SQLite with type-casting schema models and support for native & pure JS backends. |",
+	"| strat         | [haltcase/strat](https://github.com/haltcase/strat)                 | Functional-ish JavaScript string formatting, with inspirations from Python.                 |",
+	"| tablemark-cli | [haltcase/tablemark-cli](https://github.com/haltcase/tablemark-cli) | Generate markdown tables from JSON data at the command line.                                |"
+]);
 
 const inputLongValue = JSON.stringify({
-  "lots of ones": "1".repeat(50)
-})
+	"lots of ones": "1".repeat(50)
+});
 
 const inputThreeColumn = JSON.stringify({
-  one: "one",
-  two: "two",
-  "three dog": "night"
-})
+	one: "one",
+	two: "two",
+	"three dog": "night"
+});
 
-const testDirectory = dirname(fileURLToPath(import.meta.url))
-const cliPath = resolve(testDirectory, "../dist/cli.js")
-const inputPath = resolve(testDirectory, "./fixtures/input.json")
-const ndjsonInputPath = resolve(testDirectory, "./fixtures/input.ndjson")
+const testDirectory = dirname(fileURLToPath(import.meta.url));
+const cliPath = resolve(testDirectory, "../src/cli.ts");
+const inputPath = resolve(testDirectory, "./fixtures/input.json");
+const ndjsonInputPath = resolve(testDirectory, "./fixtures/input.ndjson");
 
-const jsonContent = readFileSync(inputPath, "utf8")
+const jsonContent = readFileSync(inputPath, "utf8");
 
-const execute = (argString: string, stdin?: string): ExecutionResult => {
-  const { stdout, stderr, failed } = execaCommandSync(
-    `node ${cliPath} ${argString}`.trim(),
-    {
-      encoding: "utf8",
-      input: stdin
-    }
-  )
+const isNativeTypescript =
+	"typescript" in process.features &&
+	(process.features.typescript === "strip" ||
+		process.features.typescript === "transform");
 
-  return {
-    success: !failed,
-    stdout,
-    stderr
-  }
-}
+const execute = async (
+	argumentString: string,
+	stdin?: string
+): Promise<ExecutionResult> => {
+	const options = {
+		encoding: "utf8",
+		input: stdin
+	} satisfies Parameters<typeof execa>[1];
 
-test("renders JSON from file as a markdown table", async t => {
-  const { success, stdout } = execute(inputPath)
-  t.true(success)
-  t.is(stdout, expected)
-})
+	// Remove this when all supported versions of Node support TypeScript natively
+	if (!isNativeTypescript) {
+		const { stdout, stderr, failed } = await execa(
+			"tsx",
+			[cliPath, ...argumentString.trim().split(" ")],
+			options
+		);
 
-test("renders NDJSON from file as a markdown table", async t => {
-  const { success, stdout } = execute(ndjsonInputPath)
-  t.true(success)
-  t.is(stdout, expected)
-})
+		return {
+			success: !failed,
+			stdout,
+			stderr
+		};
+	}
 
-test("renders JSON content from stdin as a markdown table", async t => {
-  const { success, stdout } = execute("-", jsonContent)
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { stdout, stderr, failed } = await execaNode(
+		cliPath,
+		argumentString.trim().split(" "),
+		options
+	);
 
-test("fails when input file path does not exist", async t => {
-  t.throws(() => execute("not-a-file.js"), {
-    message: /no such file or directory/
-  })
-})
+	return {
+		success: !failed,
+		stdout,
+		stderr
+	};
+};
 
-test("fails when input content is invalid", async t => {
-  t.throws(() => execute("-", "not json"), {
-    message: /Could not parse input as JSON/
-  })
-})
+test("renders JSON from file as a markdown table", async () => {
+	const { success, stdout } = await execute(inputPath);
+	assert(success);
+	assert.strictEqual(stdout, commonExpected);
+});
 
-test("long values are not wrapped by default", async t => {
-  const expected = joinLines([
-    "| Lots of ones                                       |",
-    "| :------------------------------------------------- |",
-    "| 11111111111111111111111111111111111111111111111111 |"
-  ])
+test("renders NDJSON from file as a markdown table", async () => {
+	const { success, stdout } = await execute(ndjsonInputPath);
+	assert(success);
+	assert.strictEqual(stdout, commonExpected);
+});
 
-  const { success, stdout } = execute("-", inputLongValue)
+test("renders JSON content from stdin as a markdown table", async () => {
+	const { success, stdout } = await execute("-", jsonContent);
+	assert(success);
+	assert.strictEqual(stdout, commonExpected);
+});
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+test("fails when input file path does not exist", async () => {
+	await expect(() => execute("not-a-file.js")).rejects.toThrow(
+		/no such file or directory/
+	);
+});
 
-test("long values are wrapped if `--wrap-width` is supplied", async t => {
-  const expected = joinLines([
-    "| Lots of ones              |",
-    "| :------------------------ |",
-    "| 1111111111111111111111111 |",
-    "  1111111111111111111111111  "
-  ])
+test("fails when input content is invalid", async () => {
+	await expect(() => execute("-", "not json")).rejects.toThrow(
+		/Could not parse input as JSON/
+	);
+});
 
-  const { success, stdout } = execute("- --wrap-width 25", inputLongValue)
+test("long values are not wrapped by default", async () => {
+	const expected = joinLines([
+		"| Lots of ones                                       |",
+		"| :------------------------------------------------- |",
+		"| 11111111111111111111111111111111111111111111111111 |"
+	]);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { success, stdout } = await execute("-", inputLongValue);
 
-test("gutters are included on wrapped rows when `--wrap-with-gutters` is supplied", async t => {
-  const expected = joinLines([
-    "| Lots of ones              |",
-    "| :------------------------ |",
-    "| 1111111111111111111111111 |",
-    "| 1111111111111111111111111 |"
-  ])
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const { success, stdout } = execute(
-    "- --wrap-width 25 --wrap-with-gutters",
-    inputLongValue
-  )
+test("long values are wrapped if `--wrap-width` is supplied", async () => {
+	const expected = joinLines([
+		"| Lots of ones              |",
+		"| :------------------------ |",
+		"| 1111111111111111111111111 |",
+		"  1111111111111111111111111  "
+	]);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { success, stdout } = await execute(
+		"- --wrap-width 25",
+		inputLongValue
+	);
 
-test("line ending can be customized using `--line-ending`", async t => {
-  const lineEnding = "~@~"
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const expected = joinLines(
-    [
-      "| Lots of ones                                       |",
-      "| :------------------------------------------------- |",
-      "| 11111111111111111111111111111111111111111111111111 |"
-    ],
-    lineEnding
-  )
+test("gutters are included on wrapped rows when `--wrap-with-gutters` is supplied", async () => {
+	const expected = joinLines([
+		"| Lots of ones              |",
+		"| :------------------------ |",
+		"| 1111111111111111111111111 |",
+		"| 1111111111111111111111111 |"
+	]);
 
-  const { success, stdout } = execute(
-    `- --line-ending ${lineEnding}`,
-    inputLongValue
-  )
+	const { success, stdout } = await execute(
+		"- --wrap-width 25 --wrap-with-gutters",
+		inputLongValue
+	);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-test("sentence casing can be disabled with `--no-case-headers`", async t => {
-  const expected = joinLines([
-    "| one   | two   | three dog |",
-    "| :---- | :---- | :-------- |",
-    "| one   | two   | night     |"
-  ])
+test("line ending can be customized using `--line-ending`", async () => {
+	const lineEnding = "~@~";
 
-  const { success, stdout } = execute("- --no-case-headers", inputThreeColumn)
+	const expected = joinLines(
+		[
+			"| Lots of ones                                       |",
+			"| :------------------------------------------------- |",
+			"| 11111111111111111111111111111111111111111111111111 |"
+		],
+		lineEnding
+	);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { success, stdout } = await execute(
+		`- --line-ending ${lineEnding}`,
+		inputLongValue
+	);
 
-test("column alignment can be customized using `--align`", async t => {
-  const expected = joinLines([
-    "| One   |  Two  | Three dog |",
-    "| :---- | :---: | --------: |",
-    "| one   |  two  |     night |"
-  ])
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const { success, stdout } = execute(
-    "- --align left --align center --align right",
-    inputThreeColumn
-  )
+test("sentence casing can be disabled with `--no-case-headers`", async () => {
+	const expected = joinLines([
+		"| one   | two   | three dog |",
+		"| :---- | :---- | :-------- |",
+		"| one   | two   | night     |"
+	]);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { success, stdout } = await execute(
+		"- --no-case-headers",
+		inputThreeColumn
+	);
 
-test("column names can be customized using `--column`", async t => {
-  const expected = joinLines([
-    "| AAA   | BBB   | CCCCC |",
-    "| :---- | :---- | :---- |",
-    "| one   | two   | night |"
-  ])
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const { success, stdout } = execute(
-    "- --column AAA --column BBB --column CCCCC",
-    inputThreeColumn
-  )
+test("column alignment can be customized using `--align`", async () => {
+	const expected = joinLines([
+		"| One   |  Two  | Three dog |",
+		"| :---- | :---: | --------: |",
+		"| one   |  two  |     night |"
+	]);
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const { success, stdout } = await execute(
+		"- --align left --align center --align right",
+		inputThreeColumn
+	);
 
-test("all options work together as expected", async t => {
-  const lineEnding = "~@~"
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const expected = joinLines(
-    [
-      "| AAA   |  BBB  | three |",
-      "|       |       |   dog |",
-      "| :---- | :---: | ----: |",
-      "| one   |  two  | night |"
-    ],
-    lineEnding
-  )
+test("column names can be customized using `--column`", async () => {
+	const expected = joinLines([
+		"| AAA   | BBB   | CCCCC |",
+		"| :---- | :---- | :---- |",
+		"| one   | two   | night |"
+	]);
 
-  const columns = ["AAA", "BBB"].map(name => `-c ${name}`).join(" ")
+	const { success, stdout } = await execute(
+		"- --column AAA --column BBB --column CCCCC",
+		inputThreeColumn
+	);
 
-  const alignments = ["left", "center", "right"]
-    .map(align => `-a ${align}`)
-    .join(" ")
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});
 
-  const { success, stdout } = execute(
-    `- ${columns} ${alignments} --wrap-width 3 --wrap-with-gutters --line-ending ${lineEnding} --no-case-headers`,
-    inputThreeColumn
-  )
+test("all options work together as expected", async () => {
+	const lineEnding = "~@~";
 
-  t.true(success)
-  t.is(stdout, expected)
-})
+	const expected = joinLines(
+		[
+			"| AAA   |  BBB  | three |",
+			"|       |       |   dog |",
+			"| :---- | :---: | ----: |",
+			"| one   |  two  | night |"
+		],
+		lineEnding
+	);
+
+	const columns = ["AAA", "BBB"].map((name) => `-c ${name}`).join(" ");
+
+	const alignments = ["left", "center", "right"]
+		.map((align) => `-a ${align}`)
+		.join(" ");
+
+	const { success, stdout } = await execute(
+		`- ${columns} ${alignments} --wrap-width 3 --wrap-with-gutters --line-ending ${lineEnding} --no-case-headers`,
+		inputThreeColumn
+	);
+
+	assert(success);
+	assert.strictEqual(stdout, expected);
+});

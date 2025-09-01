@@ -1,17 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "es2022",
-    "target": "es2020",
-    "moduleResolution": "node",
-    "strict": true,
-    "declaration": true,
-    "outDir": "dist",
-    // emitted bin script must use LF line endings to be
-    // executed properly in all scenarios, see:
-    // https://github.com/haltcase/tablemark-cli/issues/1
-    "newLine": "lf"
-  },
-  "include": [
-    "src"
-  ]
+	"extends": "@haltcase/style/typescript/node20",
+	"compilerOptions": {
+		"noEmit": true,
+		// emitted bin script must use LF line endings to be
+		// executed properly in all scenarios, see:
+		// https://github.com/haltcase/tablemark-cli/issues/1
+		"newLine": "lf",
+
+		"allowImportingTsExtensions": true,
+		"rewriteRelativeImportExtensions": true,
+		"verbatimModuleSyntax": true
+	},
+	"include": ["**/*.ts"]
 }

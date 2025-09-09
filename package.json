@@ -26,7 +26,6 @@
 	],
 	"scripts": {
 		"build": "tsdown",
-		"changelog": "changelog",
 		"eslint:check": "eslint src",
 		"format": "oxlint --fix && eslint --fix src tests && prettier --write src tests",
 		"oxlint:check": "oxlint",

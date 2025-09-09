@@ -40,10 +40,14 @@
 		"tablemark": "^3.1.0"
 	},
 	"devDependencies": {
+		"@actions/core": "^1.11.1",
+		"@actions/exec": "^1.1.1",
+		"@actions/github": "^6.0.0",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
 		"@commitlint/types": "^19.8.1",
 		"@haltcase/style": "^7.3.1",
+		"@octokit/types": "^14.1.0",
 		"@types/node": "^20.19.11",
 		"@typescript/native-preview": "7.0.0-dev.20250830.1",
 		"eslint": "^9.34.0",

@@ -29,7 +29,7 @@
 		"eslint:check": "eslint src",
 		"format": "oxlint --fix && eslint --fix src tests && prettier --write src tests",
 		"oxlint:check": "oxlint",
-		"prepublishOnly": "pnpm format && pnpm build",
+		"prepublishOnly": "vitest --run && pnpm build",
 		"prettier:check": "prettier --check src",
 		"test": "vitest",
 		"typescript:check": "tsgo"

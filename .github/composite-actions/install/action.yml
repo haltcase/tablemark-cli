@@ -11,17 +11,17 @@ runs:
   using: composite
   steps:
     - name: Install pnpm
-      uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
       with:
         package_json_file: package.json
         run_install: false
 
     - name: Install Node.js
-      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs.NODE_VERSION }}
         cache: pnpm
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: pnpm install

@@ -1,24 +1,22 @@
 name: Test
-
 on:
-  - push
-  - pull_request
+  pull_request:
+  push:
+  workflow_call:
 
 jobs:
   test:
-    name: ${{ matrix.os }} / Node ${{ matrix.node }}
-    runs-on: ${{ matrix.os }}
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
         node: [20, 22, 24]
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Install
         uses: ./.github/composite-actions/install
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Test
-        run: pnpm test
+      - run: pnpm test

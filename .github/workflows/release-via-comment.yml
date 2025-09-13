@@ -2,7 +2,9 @@ name: Release via comment
 
 on:
   issue_comment:
-    types: [created, edited]
+    types:
+      - created
+      - edited
 
 jobs:
   release_via_comment:
@@ -29,8 +31,8 @@ jobs:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
-          # ensure branches share histories
-          # see: https://github.com/actions/checkout/issues/125
+          # Ensure branches share histories; see:
+          # https://github.com/actions/checkout/issues/125
           fetch-depth: 0
 
       - name: Verify PR and dispatch release workflow

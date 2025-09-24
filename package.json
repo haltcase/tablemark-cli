@@ -50,6 +50,7 @@
 		"@octokit/types": "^14.1.0",
 		"@types/node": "^20.19.13",
 		"@typescript/native-preview": "7.0.0-dev.20250911.1",
+		"conventional-changelog-conventionalcommits": "^9.1.0",
 		"eslint": "^9.35.0",
 		"eslint-plugin-oxlint": "^1.15.0",
 		"execa": "^9.6.0",

@@ -1,14 +1,5 @@
 import { number, oneOf as namelessOneOf, string, type Type } from "cmd-ts";
-import type {
-	Alignment,
-	ColumnDescriptor,
-	HeaderCase,
-	InputData,
-	LineBreakStrategy,
-	OverflowStrategy,
-	TextHandlingStrategy,
-	UnknownKeyStrategy
-} from "tablemark";
+import type { ColumnDescriptor, InputData } from "tablemark";
 import {
 	alignmentOptions,
 	headerCaseOptions,

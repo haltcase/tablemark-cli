@@ -3,8 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { styleText } from "node:util";
 
-import type { InputData, TablemarkOptions } from "tablemark";
-import { tablemark } from "tablemark";
+import type { InputData } from "tablemark";
 
 const jsonIsArrayRegex = /^\s*\[/;
 const isEmptyRegex = /^\s*$/;
@@ -71,7 +70,8 @@ const parseJson = (input: string): InputData => {
 	} catch (error) {
 		const details = error instanceof Error ? ` :: ${error.message}` : "";
 		throw new TypeError(
-			`Could not parse input as JSON${details}, input:\n${input}`.trim()
+			`Could not parse input as JSON${details}, input:\n${input}`.trim(),
+			{ cause: error }
 		);
 	}
 };

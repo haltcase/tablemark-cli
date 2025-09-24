@@ -60,41 +60,55 @@ export const descriptorsType: Type<string, ColumnDescriptor[]> = {
 				throw new TypeError("Not an array");
 			}
 
-			for (const item of raw) {
-				if (typeof item !== "object" || item == null) {
-					throw new TypeError("Not an array of objects");
-				}
-
-				const object = item as Record<string, unknown>;
-				for (const [key, value] of Object.entries(object)) {
-					switch (key) {
-						case "align": {
-							await alignmentType.from(String(value));
-							break;
-						}
-						case "name": {
-							await string.from(String(value));
-							break;
-						}
-						case "overflowHeaderStrategy":
-						case "overflowStrategy": {
-							await overflowStrategyType.from(String(value));
-							break;
-						}
-						case "textHandlingStrategy": {
-							await textHandlingStrategyType.from(String(value));
-							break;
-						}
-						case "maxWidth":
-						case "width": {
-							await number.from(String(value));
-							break;
-						}
+			const result = await Promise.all(
+				raw.map(async (item) => {
+					if (typeof item !== "object" || item == null) {
+						throw new TypeError("Not an array of objects");
 					}
-				}
-			}
 
-			return raw as ColumnDescriptor[];
+					const object = item as Record<string, unknown>;
+
+					return Object.fromEntries(
+						await Promise.all(
+							Object.entries(object).map(async ([key, value]) => {
+								let outputValue: unknown;
+
+								switch (key) {
+									case "align": {
+										outputValue = alignmentType.from(String(value));
+										break;
+									}
+									case "name": {
+										outputValue = string.from(String(value));
+										break;
+									}
+									case "overflowHeaderStrategy":
+									case "overflowStrategy": {
+										outputValue = overflowStrategyType.from(String(value));
+										break;
+									}
+									case "textHandlingStrategy": {
+										outputValue = textHandlingStrategyType.from(String(value));
+										break;
+									}
+									case "maxWidth": {
+										outputValue = number.from(String(value));
+										break;
+									}
+									case "width": {
+										outputValue = number.from(String(value));
+										break;
+									}
+								}
+
+								return [key, await outputValue] as const;
+							})
+						)
+					);
+				})
+			);
+
+			return result as ColumnDescriptor[];
 		} catch {
 			throw new Error(`Expected a JSON array of column descriptors`);
 		}

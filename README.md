@@ -5,44 +5,68 @@
 Render JSON input data as a markdown table from the command line,
 powered by the [`tablemark`](https://github.com/haltcase/tablemark) module.
 
-## features
-
 This utility supports:
 
 - JSON file input from a provided path
-- data piped from `stdin`
+- Data piped from `stdin`
 - NDJSON formatted data ([newline delimited JSON](http://ndjson.org/))
+- And most options supported by `tablemark`
 
-## installation
+## Installation
 
 ```shell
 pnpm add --global tablemark-cli
 
 # or
-
 npm install --global tablemark-cli
+
+# or
+bun install --global tablemark-cli
 ```
 
-## usage
+You can also use `pnpx`/`pnpm dlx`, `npx`, `bunx`, etc. to run it without installing:
+
+```sh
+pnpx tablemark-cli input.json > output.md
+
+# or
+npx tablemark-cli input.json > output.md
+
+# or
+bunx tablemark-cli input.json > output.md
+```
+
+## Usage
 
 ```
-tablemark 3.0.0
+tablemark 4.0.0
 > Generate markdown tables from JSON data at the command line.
 
 ARGUMENTS:
   <input-file> - Path to input file containing JSON data (use - for stdin)
 
 OPTIONS:
-  --column <str>, -c=<str>    - Custom column name, can be used multiple times (default: infer from object keys)
-  --align <value>, -a=<value> - Custom alignments, can be used multiple times, applied in order to columns (default: left)
-  --line-ending, -e <str>     - End-of-line string (default: \n) [optional]
-  --wrap-width, -w <number>   - Width at which to hard wrap cell content [default: Infinity]
+  --align <Alignment>, -a=<Alignment>                 - Alignment, can be used multiple times [default: left]
+  --align-all, -A <Alignment>                         - Default alignment for all columns [default: left]
+  --column <str>, -c=<str>                            - Column name, can be used multiple times [default: infer from object key]
+  --descriptors, -D <ColumnDescriptors>               - Column descriptors as a JSON array, overrides --align/--column [default: none] [optional]
+  --header-case, -H <HeaderCase>                      - Control the casing of column names [default: sentenceCase]
+  --line-break-strategy, -l <LineBreakStrategy>       - How to handle line breaks in cell content [default: preserve]
+  --line-ending, -e <str>                             - End-of-line string [default: \n] [optional]
+  --max-width, -w <number>                            - Maximum content width of each column [default: Infinity]
+  --overflow-strategy, -o <OverflowStrategy>          - What to do when cell content exceeds max width [default: wrap]
+  --overflow-header-strategy, -O <OverflowStrategy>   - What to do when header cell content exceeds max width [default: wrap]
+  --unknown-key-strategy, -u <UnknownKeyStrategy>     - What to do when an unknown key is encountered [default: ignore]
+  --text-handling-strategy, -t <TextHandlingStrategy> - Which text processing method to use [default: auto]
+  --wrap-width <number>                               - (Deprecated) Alias for --max-width [default: Infinity]
 
 FLAGS:
-  --no-case-headers, -N   - Disable automatic sentence casing of inferred column names [default: false]
-  --wrap-with-gutters, -G - Add '|' characters to wrapped rows [default: false]
-  --help, -h              - show help
-  --version, -v           - print the version
+  --count-ansi                  - Count ANSI escape codes towards content width
+  --no-case-headers, -N         - (Deprecated) Disable automatic sentence casing of inferred column names
+  --no-pad-header-separator, -P - Omit padding on the header separator row
+  --wrap-with-gutters, -G       - Add '|' characters to wrapped rows
+  --help, -h                    - show help
+  --version, -v                 - print the version
 ```
 
 To apply the `align` and `column` options to multiple columns, supply the flag
@@ -54,7 +78,7 @@ tablemark input.json > output.md -a left -a center -a right
 
 ... which will align the first three columns left, center, and right respectively.
 
-## stdin
+## Piped input (`stdin`)
 
 In bash-like shells:
 
@@ -76,7 +100,7 @@ In PowerShell:
 cat input.json | tablemark - > output.md
 ```
 
-## ndjson
+## NDJSON
 
 [NDJSON](http://ndjson.org) is a form of JSON that delimits multiple JSON objects by newlines:
 
@@ -93,11 +117,11 @@ a JSON compatible array:
 tablemark input.ndjson > output.md
 ```
 
-## see also
+## See also
 
 - [`tablemark`](https://github.com/haltcase/tablemark) &ndash; the module used by this utility
 
-## contributing
+## Contributing
 
 Search the [issues](https://github.com/haltcase/tablemark-cli) if you come
 across any trouble, open a new one if it hasn't been posted, or, if you're
@@ -110,6 +134,6 @@ The following people have already contributed their time and effort:
 
 Thank you!
 
-## license
+## License
 
 MIT © Bo Lingen / haltcase

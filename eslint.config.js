@@ -13,5 +13,11 @@ export default [
 		typescriptProject: join(import.meta.dirname, "tsconfig.json")
 	}),
 
-	...oxlint.configs["flat/recommended"]
+	...oxlint.configs["flat/recommended"],
+
+	{
+		rules: {
+			"unicorn/no-process-exit": "off"
+		}
+	}
 ];

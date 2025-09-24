@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { styleText } from "node:util";
 
-import type { Type } from "cmd-ts";
 import {
 	array,
 	binary,
@@ -13,66 +10,38 @@ import {
 	multioption,
 	number,
 	option,
+	optional,
 	positional,
 	run,
 	string
 } from "cmd-ts";
-import type { Alignment, InputData, TablemarkOptions } from "tablemark";
-import { alignmentOptions } from "tablemark";
+import type { TablemarkOptions } from "tablemark";
+import {
+	alignmentOptions,
+	headerCaseOptions,
+	lineBreakStrategies,
+	overflowStrategies,
+	tablemark,
+	textHandlingStrategies,
+	unknownKeyStrategies
+} from "tablemark";
 
-import { convert, getStdin, parse, read, zip } from "./util.ts";
-
-interface PackageInfo {
-	description: string;
-	version: string;
-}
-
-const getPackageInfo = (): PackageInfo => {
-	const pkgPath = dirname(fileURLToPath(import.meta.url));
-
-	try {
-		const pkg = readFileSync(resolve(pkgPath, "../package.json"), "utf8");
-		const { description, version } = JSON.parse(pkg) as {
-			description: string;
-			version: string;
-		};
-
-		return { description, version };
-	} catch {
-		return { description: "", version: "" };
-	}
-};
-
-const alignmentList: Type<string[], Alignment[]> = {
-	// eslint-disable-next-line @typescript-eslint/require-await
-	async from(input) {
-		return input.map((part) => {
-			if (part === "") {
-				return "left";
-			}
-
-			if (!Object.keys(alignmentOptions).includes(part.toLowerCase())) {
-				throw new Error(`Expected an Alignment, got "${part}"`);
-			}
-
-			return part as Alignment;
-		});
-	}
-};
-
-export const inputContent: Type<string, InputData> = {
-	async from(input) {
-		const content = input === "-" ? await getStdin() : read(input);
-
-		if (content === "" && process.stdin.isTTY) {
-			return [];
-		}
-
-		return parse(content);
-	}
-};
+import {
+	alignmentType,
+	descriptorsType,
+	filePathOrStdinType,
+	headerCaseType,
+	lineBreakStrategyType,
+	overflowStrategyType,
+	textHandlingStrategyType,
+	unknownKeyStrategyType
+} from "./cli-types.ts";
+import { fail, getPackageInfo, print, warn, zip } from "./util.ts";
 
 const { description, version } = getPackageInfo();
+
+const labelDefault = (text: string): string =>
+	styleText("gray", `[default: ${styleText("italic", text)}]`);
 
 const cmd = command({
 	name: "tablemark",
@@ -82,65 +51,182 @@ const cmd = command({
 		inputFile: positional({
 			displayName: "input-file",
 			description: "Path to input file containing JSON data (use - for stdin)",
-			type: inputContent
-		}),
-		column: multioption({
-			long: "column",
-			short: "c",
-			description:
-				"Custom column name, can be used multiple times (default: infer from object keys)",
-			type: array(string)
+			type: filePathOrStdinType
 		}),
 		align: multioption({
 			long: "align",
 			short: "a",
-			description:
-				"Custom alignments, can be used multiple times, applied in order to columns (default: left)",
-			type: alignmentList
+			description: `Alignment, can be used multiple times ${labelDefault("left")}`,
+			type: array(alignmentType)
 		}),
-		noCaseHeaders: flag({
-			long: "no-case-headers",
-			short: "N",
-			description: "Disable automatic sentence casing of inferred column names",
-			defaultValue: () => false,
+		alignAll: option({
+			long: "align-all",
+			short: "A",
+			description: `Default alignment for all columns`,
+			type: alignmentType,
+			defaultValue: () => alignmentOptions.left,
+			defaultValueIsSerializable: true
+		}),
+		column: multioption({
+			long: "column",
+			short: "c",
+			description: `Column name, can be used multiple times ${labelDefault("infer from object key")}`,
+			type: array(string)
+		}),
+		countAnsi: flag({
+			long: "count-ansi",
+			description: "Count ANSI escape codes towards content width"
+		}),
+		descriptors: option({
+			long: "descriptors",
+			short: "D",
+			description: `Column descriptors as a JSON array, overrides --align/--column ${labelDefault("none")}`,
+			type: optional(descriptorsType)
+		}),
+		headerCase: option({
+			long: "header-case",
+			short: "H",
+			description: "Control the casing of column names",
+			type: headerCaseType,
+			defaultValue: () => headerCaseOptions.sentenceCase,
+			defaultValueIsSerializable: true
+		}),
+		lineBreakStrategy: option({
+			long: "line-break-strategy",
+			short: "l",
+			description: "How to handle line breaks in cell content",
+			type: lineBreakStrategyType,
+			defaultValue: () => lineBreakStrategies.preserve,
 			defaultValueIsSerializable: true
 		}),
 		lineEnding: option({
 			long: "line-ending",
 			short: "e",
-			description: "End-of-line string (default: \\n)",
+			description: `End-of-line string ${labelDefault("\\n")}`,
 			type: string,
 			defaultValue: () => "\n"
 		}),
+		maxWidth: option({
+			long: "max-width",
+			short: "w",
+			description: "Maximum content width of each column",
+			type: number,
+			defaultValue: () => Number.POSITIVE_INFINITY,
+			defaultValueIsSerializable: true
+		}),
+		noCaseHeaders: flag({
+			long: "no-case-headers",
+			short: "N",
+			description:
+				"(Deprecated) Disable automatic sentence casing of inferred column names",
+			defaultValue: () => false
+		}),
+		overflowStrategy: option({
+			long: "overflow-strategy",
+			short: "o",
+			description: "What to do when cell content exceeds max width",
+			type: overflowStrategyType,
+			defaultValue: () => overflowStrategies.wrap,
+			defaultValueIsSerializable: true
+		}),
+		overflowHeaderStrategy: option({
+			long: "overflow-header-strategy",
+			short: "O",
+			description: "What to do when header cell content exceeds max width",
+			type: overflowStrategyType,
+			defaultValue: () => overflowStrategies.wrap,
+			defaultValueIsSerializable: true
+		}),
+		noPadHeaderSeparator: flag({
+			long: "no-pad-header-separator",
+			short: "P",
+			description: "Omit padding on the header separator row",
+			defaultValue: () => false
+		}),
+		unknownKeyStrategy: option({
+			long: "unknown-key-strategy",
+			short: "u",
+			description: "What to do when an unknown key is encountered",
+			type: unknownKeyStrategyType,
+			defaultValue: () => unknownKeyStrategies.ignore,
+			defaultValueIsSerializable: true
+		}),
+		textHandlingStrategy: option({
+			long: "text-handling-strategy",
+			short: "t",
+			description: "Which text processing method to use",
+			type: textHandlingStrategyType,
+			defaultValue: () => textHandlingStrategies.auto,
+			defaultValueIsSerializable: true
+		}),
 		wrapWidth: option({
 			long: "wrap-width",
-			short: "w",
-			description: "Width at which to hard wrap cell content",
+			description: "(Deprecated) Alias for --max-width",
 			type: number,
-			defaultValue: () => Infinity,
+			defaultValue: () => Number.POSITIVE_INFINITY,
 			defaultValueIsSerializable: true
 		}),
 		wrapWithGutters: flag({
 			long: "wrap-with-gutters",
 			short: "G",
 			description: "Add '|' characters to wrapped rows",
-			defaultValue: () => false,
-			defaultValueIsSerializable: true
+			defaultValue: () => false
 		})
 	},
-	handler: (args) => {
-		const options = {
-			...args,
-			caseHeaders: !args.noCaseHeaders,
-			columns: [] as NonNullable<TablemarkOptions["columns"]>
-		} satisfies TablemarkOptions;
+	handler: ({
+		align: alignments,
+		alignAll,
+		descriptors,
+		noCaseHeaders,
+		noPadHeaderSeparator,
+		...args
+	}) => {
+		const columns =
+			descriptors ??
+			zip(args.column, alignments).map(([name, align]) => ({
+				name,
+				align
+			}));
 
-		for (const [name, align] of zip(args.column, args.align)) {
-			options.columns.push({ name, align });
+		let headerCase = args.headerCase;
+		let maxWidth = args.maxWidth;
+
+		// Support deprecated --wrap-width flag. This behavior will be removed in
+		// a future major release.
+		if (args.wrapWidth !== Number.POSITIVE_INFINITY) {
+			warn(
+				"Option --wrap-width is deprecated. Please use --max-width instead."
+			);
+			maxWidth = args.wrapWidth;
 		}
 
-		// write results to stdout
-		process.stdout.write(`${convert(args.inputFile, options)}\n`);
+		// Support deprecated --no-case-headers flag. This behavior will be
+		// removed in a future major release.
+		if (noCaseHeaders) {
+			warn(
+				"Option --no-case-headers is deprecated. Please use --header-case=preserve instead."
+			);
+			headerCase = headerCaseOptions.preserve;
+		}
+
+		const options = {
+			...args,
+			align: alignAll,
+			columns,
+			headerCase,
+			maxWidth,
+			padHeaderSeparator: !noPadHeaderSeparator
+		} satisfies TablemarkOptions;
+
+		try {
+			print(tablemark(args.inputFile, options));
+		} catch (error) {
+			fail(
+				error instanceof Error
+					? error.message
+					: `An unknown error occurred: ${String(error)}`
+			);
+		}
 	}
 });
 

@@ -1,10 +1,34 @@
 import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { styleText } from "node:util";
 
 import type { InputData, TablemarkOptions } from "tablemark";
-import tablemark from "tablemark";
+import { tablemark } from "tablemark";
 
 const jsonIsArrayRegex = /^\s*\[/;
 const isEmptyRegex = /^\s*$/;
+
+interface PackageInfo {
+	description: string;
+	version: string;
+}
+
+export const getPackageInfo = (): PackageInfo => {
+	const pkgPath = dirname(fileURLToPath(import.meta.url));
+
+	try {
+		const pkg = readFileSync(resolve(pkgPath, "../package.json"), "utf8");
+		const { description, version } = JSON.parse(pkg) as {
+			description: string;
+			version: string;
+		};
+
+		return { description, version };
+	} catch {
+		return { description: "", version: "" };
+	}
+};
 
 export const getStdin = async (): Promise<string> => {
 	if (process.stdin.isTTY) {
@@ -64,15 +88,15 @@ export const parse = (input: string): InputData => {
 		.flatMap((data) => parseJson(data));
 };
 
-export const convert = (
-	input?: InputData,
-	options?: TablemarkOptions
-): string => {
-	const clonedOptions = { ...options };
+export const print = (message: string): void => {
+	process.stdout.write(`${message}\n`);
+};
 
-	if (input == null || input.length === 0) {
-		return "";
-	}
+export const warn = (message: string): void => {
+	process.stderr.write(`${styleText("yellow", message)}\n`);
+};
 
-	return tablemark(input, clonedOptions);
+export const fail = (message: string): never => {
+	process.stderr.write(`${styleText("red", message)}\n`);
+	process.exit(1);
 };

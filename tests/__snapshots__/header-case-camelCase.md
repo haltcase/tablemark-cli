@@ -1,0 +1,3 @@
+| firstName | lastName | upperCased | mixedCased | sPonGeCAsEd | camelCased | pascalCased | pascalSnakeCased | capitalCased | constantCased | dotCased | kebabCased | pathCased | sentenceCased | snakeCased | trainCased |
+| :-------- | :------- | :--------- | :--------- | :---------- | :--------- | :---------- | :--------------- | :----------- | :------------ | :------- | :--------- | :-------- | :------------ | :--------- | :--------- |
+| John      | Doe      | value      | value      | value       | value      | value       | value            | value        | value         | value    | value      | value     | value         | value      | value      |

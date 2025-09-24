@@ -1,0 +1,3 @@
+| FIRST_NAME | LAST_NAME | UPPER_CASED | MIXED_CASED | S_PON_GE_C_AS_ED | CAMEL_CASED | PASCAL_CASED | PASCAL_SNAKE_CASED | CAPITAL_CASED | CONSTANT_CASED | DOT_CASED | KEBAB_CASED | PATH_CASED | SENTENCE_CASED | SNAKE_CASED | TRAIN_CASED |
+| :--------- | :-------- | :---------- | :---------- | :--------------- | :---------- | :----------- | :----------------- | :------------ | :------------- | :-------- | :---------- | :--------- | :------------- | :---------- | :---------- |
+| John       | Doe       | value       | value       | value            | value       | value        | value              | value         | value          | value     | value       | value      | value          | value       | value       |

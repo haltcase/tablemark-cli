@@ -1,0 +1,3 @@
+| First name | Last name | Upper cased | Mixed cased | S pon ge c as ed | Camel cased | Pascal cased | Pascal snake cased | Capital cased | Constant cased | Dot cased | Kebab cased | Path cased | Sentence cased | Snake cased | Train cased |
+| :--------- | :-------- | :---------- | :---------- | :--------------- | :---------- | :----------- | :----------------- | :------------ | :------------- | :-------- | :---------- | :--------- | :------------- | :---------- | :---------- |
+| John       | Doe       | value       | value       | value            | value       | value        | value              | value         | value          | value     | value       | value      | value          | value       | value       |

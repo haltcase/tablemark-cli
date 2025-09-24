@@ -1,0 +1,3 @@
+| first name | last name | UPPER CASED | mixed CASED | sPonGe cAsEd | camelCased | PascalCased | Pascal_Snake_Cased | Capital Cased | CONSTANT_CASED | dot.cased | kebab-cased | path/cased | Sentence cased | snake_cased | Train-Cased |
+| :--------- | :-------- | :---------- | :---------- | :----------- | :--------- | :---------- | :----------------- | :------------ | :------------- | :-------- | :---------- | :--------- | :------------- | :---------- | :---------- |
+| John       | Doe       | value       | value       | value        | value      | value       | value              | value         | value          | value     | value       | value      | value          | value       | value       |

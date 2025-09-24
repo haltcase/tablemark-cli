@@ -1,0 +1,12 @@
+| Ansi       | Fullwidth  | Emojis     | Mixed      |
+| :--------- | :--------- | :--------- | :--------- |
+| this text  | this text  | This text  | [4mThis text, |
+| has ANSI   | has        | has a few  | containing |
+| styles     | fullwidth  | emojis     | emoji      |
+|            | characters | 🤠🤡👻     | 👨‍👩‍👧‍�         |
+|            | 你好       |            | �, ANSI     |
+|            |            |            | styles and |
+|            |            |            | CJK 古,    |
+|            |            |            | will wrap  |
+|            |            |            | and style  |
+|            |            |            | properly[0m   |

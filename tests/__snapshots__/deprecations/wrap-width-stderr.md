@@ -1,0 +1,1 @@
+Option --wrap-width is deprecated. Please use --max-width instead.

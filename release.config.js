@@ -1,3 +1,5 @@
+import conventionalcommits from "conventional-changelog-conventionalcommits";
+
 /**
  * @type {import("semantic-release").GlobalConfig}
  */
@@ -22,7 +24,10 @@ export default {
 		[
 			"@semantic-release/release-notes-generator",
 			{
-				preset: "conventionalcommits"
+				preset: "conventionalcommits",
+				presetConfig: {
+					types: conventionalcommits.DEFAULT_COMMIT_TYPES
+				}
 			}
 		],
 		"@semantic-release/npm",

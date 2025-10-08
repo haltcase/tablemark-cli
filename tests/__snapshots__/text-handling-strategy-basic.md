@@ -1,7 +1,7 @@
 | Ansi       | Fullwidth  | Emojis     | Mixed      |
 | :--------- | :--------- | :--------- | :--------- |
 | this text  | this text  | This text  | [4mThis text, |
-| has ANSI   | has        | has a few  | containing |
+| has [4mANSI[24m   | has        | has a few  | containing |
 | styles     | fullwidth  | emojis     | emoji      |
 |            | characters | 🤠🤡👻     | 👨‍👩‍👧‍�         |
 |            | 你好       |            | �, ANSI     |

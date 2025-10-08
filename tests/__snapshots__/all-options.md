@@ -1,1 +1,1 @@
-| AAA  |     BBB     |     three/dog |~@~|:-----|:-----------:|--------------:|~@~| one  |     two     |         night |~@~| one  | two  again  |         …long |~@~| one  |     two     |         night |~@~
+| AAA  |     BBB     |     three/dog |~@~|:-----|:-----------:|--------------:|~@~| one  |     two     |         [4mnight[24m |~@~| one  | two  again  |         …long[24m |~@~| one  |     two     |         [4mnight[24m |~@~

@@ -1,1 +1,1 @@
-Unexpected object key 'three' at record index 1
+[31mUnexpected object key 'three' at record index 1[39m

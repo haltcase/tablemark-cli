@@ -1,1 +1,1 @@
-Option --wrap-width is deprecated. Please use --max-width instead.
+[33mOption --wrap-width is deprecated. Please use --max-width instead.[39m

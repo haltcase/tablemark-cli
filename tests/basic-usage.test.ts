@@ -269,7 +269,9 @@ test("treats ANSI escape codes as non-zero width using `--count-ansi`", async ()
 	const { success, stdout } = await execute(
 		"- --count-ansi",
 		JSON.stringify({
-			one: styleText(["bold", "red", "underline"], "value")
+			one: styleText(["bold", "red", "underline"], "value", {
+				validateStream: false
+			})
 		})
 	);
 

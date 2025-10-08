@@ -1,1 +1,1 @@
-Option --no-case-headers is deprecated. Please use --header-case=preserve instead.
+[33mOption --no-case-headers is deprecated. Please use --header-case=preserve instead.[39m

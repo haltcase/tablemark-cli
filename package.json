@@ -57,7 +57,7 @@
 		"lefthook": "^1.13.0",
 		"oxlint": "^1.15.0",
 		"prettier": "^3.6.2",
-		"semantic-release": "^24.2.8",
+		"semantic-release": "^25.0.1",
 		"tsdown": "^0.15.0",
 		"tsx": "catalog:",
 		"typescript": "^5.9.2",

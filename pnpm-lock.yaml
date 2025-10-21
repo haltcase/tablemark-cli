@@ -612,9 +612,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.30':
     resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
 
-  '@keyv/bigmap@1.0.2':
-    resolution: {integrity: sha512-KR03xkEZlAZNF4IxXgVXb+uNIVNvwdh8UwI0cnc7WI6a+aQcDp8GL80qVfeB4E5NpsKJzou5jU0r6yLSSbMOtA==}
+  '@keyv/bigmap@1.1.0':
+    resolution: {integrity: sha512-MX7XIUNwVRK+hjZcAbNJ0Z8DREo+Weu9vinBOjGU1thEi9F6vPhICzBbk4CCf3eEefKRz7n6TfZXwUFZTSgj8Q==}
     engines: {node: '>= 18'}
+    peerDependencies:
+      keyv: ^5.5.3
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
@@ -1494,8 +1496,8 @@ packages:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
 
-  cacheable@2.1.0:
-    resolution: {integrity: sha512-zzL1BxdnqwD69JRT0dihnawAcLkBMwAH+hZSKjUzeBbPedVhk3qYPjRw9VOMYWwt5xRih5xd8S+3kEdGohZm/g==}
+  cacheable@2.1.1:
+    resolution: {integrity: sha512-LmF4AXiSNdiRbI2UjH8pAp9NIXxeQsTotpEaegPiDcnN0YPygDJDV3l/Urc0mL72JWdATEorKqIHEx55nDlONg==}
 
   call-bind-apply-helpers@1.0.2:
     resolution: {integrity: sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==}
@@ -2286,8 +2288,8 @@ packages:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
 
-  flat-cache@6.1.17:
-    resolution: {integrity: sha512-Jzse4YoiUJBVYTwz5Bwl4h/2VQM7e2KK3MVAMlXzX9uamIHAH/TXUlRKU1AQGQOryQhN0EsmufiiF40G057YXA==}
+  flat-cache@6.1.18:
+    resolution: {integrity: sha512-JUPnFgHMuAVmLmoH9/zoZ6RHOt5n9NlUw/sDXsTbROJ2SFoS2DS4s+swAV6UTeTbGH/CAsZIE6M8TaG/3jVxgQ==}
 
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
@@ -2482,8 +2484,8 @@ packages:
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
 
-  hookified@1.12.1:
-    resolution: {integrity: sha512-xnKGl+iMIlhrZmGHB729MqlmPoWBznctSQTYCpFKqNsCgimJQmithcW0xSQMMFzYnV2iKUh25alswn6epgxS0Q==}
+  hookified@1.12.2:
+    resolution: {integrity: sha512-aokUX1VdTpI0DUsndvW+OiwmBpKCu/NgRsSSkuSY0zq8PY6Q6a+lmOfAFDXAAOtBqJELvcWY9L1EVtzjbQcMdg==}
 
   hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
@@ -3519,8 +3521,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  qified@0.5.0:
-    resolution: {integrity: sha512-Zj6Q/Vc/SQ+Fzc87N90jJUzBzxD7MVQ2ZvGyMmYtnl2u1a07CejAhvtk4ZwASos+SiHKCAIylyGHJKIek75QBw==}
+  qified@0.5.1:
+    resolution: {integrity: sha512-+BtFN3dCP+IaFA6IYNOu/f/uK1B8xD2QWyOeCse0rjtAebBmkzgd2d1OAXi3ikAzJMIBSdzZDNZ3wZKEUDQs5w==}
     engines: {node: '>=20'}
 
   quansync@0.2.11:
@@ -3616,6 +3618,11 @@ packages:
 
   resolve@1.22.10:
     resolution: {integrity: sha512-NPRy+/ncIMeDlTAsuqwKIiferiawhefFJtkNSW0qZJEqMEb+qBt/77B/jGeeek+F0uOeN05CDa6HXbbIgtVX4w==}
+    engines: {node: '>= 0.4'}
+    hasBin: true
+
+  resolve@1.22.11:
+    resolution: {integrity: sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==}
     engines: {node: '>= 0.4'}
     hasBin: true
 
@@ -4568,8 +4575,8 @@ snapshots:
     dependencies:
       '@cacheable/memoize': 2.0.3
       '@cacheable/utils': 2.1.0
-      '@keyv/bigmap': 1.0.2
-      hookified: 1.12.1
+      '@keyv/bigmap': 1.1.0(keyv@5.5.3)
+      hookified: 1.12.2
       keyv: 5.5.3
 
   '@cacheable/utils@2.1.0':
@@ -5043,9 +5050,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@keyv/bigmap@1.0.2':
+  '@keyv/bigmap@1.1.0(keyv@5.5.3)':
     dependencies:
-      hookified: 1.12.1
+      hookified: 1.12.2
+      keyv: 5.5.3
 
   '@keyv/serialize@1.1.1': {}
 
@@ -5905,14 +5913,14 @@ snapshots:
 
   cac@6.7.14: {}
 
-  cacheable@2.1.0:
+  cacheable@2.1.1:
     dependencies:
       '@cacheable/memoize': 2.0.3
       '@cacheable/memory': 2.0.3
       '@cacheable/utils': 2.1.0
-      hookified: 1.12.1
+      hookified: 1.12.2
       keyv: 5.5.3
-      qified: 0.5.0
+      qified: 0.5.1
 
   call-bind-apply-helpers@1.0.2:
     dependencies:
@@ -6428,7 +6436,7 @@ snapshots:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.16.1
-      resolve: 1.22.10
+      resolve: 1.22.11
     transitivePeerDependencies:
       - supports-color
 
@@ -6492,7 +6500,7 @@ snapshots:
       object.values: 1.2.1
       pkg-up: 2.0.0
       read-pkg-up: 3.0.0
-      resolve: 1.22.10
+      resolve: 1.22.11
       tsconfig-paths: 3.15.0
     optionalDependencies:
       '@typescript-eslint/parser': 8.41.0(eslint@9.35.0(jiti@2.5.1))(typescript@5.9.2)
@@ -6886,7 +6894,7 @@ snapshots:
 
   file-entry-cache@10.1.4:
     dependencies:
-      flat-cache: 6.1.17
+      flat-cache: 6.1.18
 
   file-entry-cache@8.0.0:
     dependencies:
@@ -6928,11 +6936,11 @@ snapshots:
       flatted: 3.3.3
       keyv: 4.5.4
 
-  flat-cache@6.1.17:
+  flat-cache@6.1.18:
     dependencies:
-      cacheable: 2.1.0
+      cacheable: 2.1.1
       flatted: 3.3.3
-      hookified: 1.12.1
+      hookified: 1.12.2
 
   flatted@3.3.3: {}
 
@@ -7126,7 +7134,7 @@ snapshots:
 
   hookable@5.5.3: {}
 
-  hookified@1.12.1: {}
+  hookified@1.12.2: {}
 
   hosted-git-info@2.8.9: {}
 
@@ -7941,9 +7949,9 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qified@0.5.0:
+  qified@0.5.1:
     dependencies:
-      hookified: 1.12.1
+      hookified: 1.12.2
 
   quansync@0.2.11: {}
 
@@ -8058,6 +8066,12 @@ snapshots:
   resolve-pkg-maps@1.0.0: {}
 
   resolve@1.22.10:
+    dependencies:
+      is-core-module: 2.16.1
+      path-parse: 1.0.7
+      supports-preserve-symlinks-flag: 1.0.0
+
+  resolve@1.22.11:
     dependencies:
       is-core-module: 2.16.1
       path-parse: 1.0.7

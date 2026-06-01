@@ -61,7 +61,7 @@
 		"tsdown": "^0.15.0",
 		"tsx": "catalog:",
 		"typescript": "^5.9.2",
-		"vitest": "^3.2.4"
+		"vitest": "^4.1.0"
 	},
 	"packageManager": "pnpm@10.15.1",
 	"engines": {
